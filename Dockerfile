@@ -1,5 +1,5 @@
 # Build stage
-FROM maven:3.9.6-amazoncorretto-21 AS build
+FROM gradle:jdk21 AS build
 COPY ./src /home/app/src
 COPY build.gradle /home/app
 COPY settings.gradle /home/app
