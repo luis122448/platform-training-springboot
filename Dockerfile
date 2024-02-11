@@ -1,5 +1,9 @@
 # Build stage
 FROM gradle:jdk21 AS build
+
+# Create a directory to work in
+WORKDIR /home/app
+
 COPY ./src /home/app/src
 COPY build.gradle /home/app
 COPY settings.gradle /home/app
