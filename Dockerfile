@@ -16,7 +16,7 @@ ARG POSTGRES_PASSWORD
 #RUN /home/app/dev-install.sh
 
 # Build the project
-RUN gradle clean build --no-daemon
+RUN gradle build --no-daemon
 
 # Package stage
 FROM openjdk:21
