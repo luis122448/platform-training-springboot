@@ -1,7 +1,8 @@
 # Build stage
 FROM maven:3.9.6-amazoncorretto-21 AS build
 COPY ./src /home/app/src
-COPY pom.xml /home/app
+COPY build.gradle /home/app
+COPY settings.gradle /home/app
 
 # Specify the variable you need
 ARG POSTGRES_HOST
@@ -14,7 +15,8 @@ ARG POSTGRES_PASSWORD
 #RUN chmod +x /home/app/dev-install.sh
 #RUN /home/app/dev-install.sh
 
-RUN mvn -f /home/app/pom.xml clean package
+# Build the project
+RUN gradle clean build --no-daemon
 
 # Package stage
 FROM openjdk:21
