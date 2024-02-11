@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'luis122448'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 
 java {
 	sourceCompatibility = '17'
@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'net.sf.jasperreports:jasperreports:6.20.6'
+	implementation 'net.sf.jasperreports:jasperreports:6.21.0'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
