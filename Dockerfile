@@ -14,10 +14,10 @@ ARG POSTGRES_DATABASE
 ARG POSTGRES_USERNAME
 ARG POSTGRES_PASSWORD
 
-#COPY dev-install.sh /home/app
+COPY deploy.sh /home/app
 #
-#RUN chmod +x /home/app/dev-install.sh
-#RUN /home/app/dev-install.sh
+RUN chmod +x /home/app/deploy.sh
+RUN /home/app/deploy.sh
 
 # Build the project
 RUN gradle clean build --no-daemon
