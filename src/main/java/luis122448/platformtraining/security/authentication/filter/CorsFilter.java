@@ -19,7 +19,6 @@ public class CorsFilter {
                                 "https://platform-training.luis122448.com",
                                 "https://platform-training-angular-production.up.railway.app"
                         )
-                        .allowedOrigins("http://localhost:4200")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true)
