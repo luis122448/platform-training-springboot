@@ -18,7 +18,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(schema = "public",name = "TBL_COURSE")
 public class CourseEntity extends AuditingEntity {
-
     @Id
     @Column(name = "ID_COMPANY", nullable = false)
     private Long idCompany;
@@ -31,19 +30,26 @@ public class CourseEntity extends AuditingEntity {
     private Long idTeacher;
     @Column(nullable = false, length = 100)
     private String title;
-    @Column(nullable = false, length = 250)
+    @Column(nullable = false, length = 500)
     private String description;
     @Column(name = "MARKDOWN_CONTENT", nullable = true, length = 4000)
     private String markdownContent;
     private String urlIcon;
     private String urlLogo;
     private String urlBackground;
-
+    @Column(name = "ID_EXAM", nullable = false)
+    private Long idExam;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "ID_COMPANY", referencedColumnName = "ID_COMPANY", insertable = false, updatable = false),
             @JoinColumn(name = "ID_TEACHER", referencedColumnName = "ID_TEACHER", insertable = false, updatable = false)
     })
     private TeacherEntity teacherEntity;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+            @JoinColumn(name = "ID_COMPANY", referencedColumnName = "ID_COMPANY", insertable = false, updatable = false),
+            @JoinColumn(name = "ID_EXAM", referencedColumnName = "ID_EXAM", insertable = false, updatable = false)
+    })
+    private ExamEntity examEntity;
 
 }

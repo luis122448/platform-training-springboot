@@ -8,8 +8,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ModuleKey implements Serializable {
-
     private Long idCompany;
     private Long idModule;
-
 }

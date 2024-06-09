@@ -1,4 +1,4 @@
-package luis122448.platformtraining.application.domain.constants;
+package luis122448.platformtraining.application.domain.constant;
 
 public class ErrorMessages {
 

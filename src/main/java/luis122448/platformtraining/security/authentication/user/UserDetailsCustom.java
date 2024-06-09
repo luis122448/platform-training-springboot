@@ -22,14 +22,16 @@ public class UserDetailsCustom implements UserDetails {
     @Getter
     private String username;
     @Getter
-    private String password;
+    private String encode;
     @Getter
-    private boolean isVerifyCode;
+    private Integer nivel;
     @Getter
     private String secretCode;
+    @Getter
+    private String role;
     private Collection<? extends GrantedAuthority> authorities;
-    private LocalDate expirationUsername;
-    private LocalDate expirationPassword;
+    private LocalDate registdate;
+    private LocalDate expiredate;
     private String status;
 
     @Override
@@ -38,8 +40,13 @@ public class UserDetailsCustom implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return this.encode;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
-        return LocalDate.now().isBefore(this.expirationUsername);
+        return LocalDate.now().isBefore(this.expiredate);
     }
 
     @Override
@@ -49,7 +56,7 @@ public class UserDetailsCustom implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return LocalDate.now().isBefore(this.expirationPassword);
+        return LocalDate.now().isBefore(this.expiredate);
     }
 
     @Override

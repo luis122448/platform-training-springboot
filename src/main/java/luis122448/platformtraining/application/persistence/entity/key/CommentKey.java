@@ -8,8 +8,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentKey implements Serializable {
-
     private Long idCompany;
     private Long idComment;
-
 }

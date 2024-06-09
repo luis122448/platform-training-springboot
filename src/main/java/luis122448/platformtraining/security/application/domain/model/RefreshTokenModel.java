@@ -1,15 +1,14 @@
 package luis122448.platformtraining.security.application.domain.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+import java.io.Serializable;
+
+@Data
 @AllArgsConstructor
-public class RefreshTokenModel {
-
+@NoArgsConstructor
+public class RefreshTokenModel implements Serializable {
     private String refreshToken;
 }

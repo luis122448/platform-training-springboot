@@ -50,7 +50,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                         userDetailsCustom, userDetailsCustom.getPassword(), userDetailsCustom.getAuthorities()
                 );
 
-                String token = this.jwtUtils.createJwtToken(company, username, false);
+                String token = this.jwtUtils.generateJwtToken(company, username, false);
 
                 response.addHeader("Access-Control-Expose-Headers", "Authorization");
                 response.addHeader(HEADER_AUTHORIZATION_KEY, TOKEN_BEARER_PREFIX + " " + token);

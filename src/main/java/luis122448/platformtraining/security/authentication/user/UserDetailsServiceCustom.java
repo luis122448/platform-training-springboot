@@ -1,7 +1,9 @@
 package luis122448.platformtraining.security.authentication.user;
 
+
 import luis122448.platformtraining.security.application.domain.model.UserModel;
 import luis122448.platformtraining.security.application.domain.service.AuthService;
+import luis122448.platformtraining.security.application.domain.service.LoginService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,28 +15,26 @@ import java.util.List;
 
 @Service
 public class UserDetailsServiceCustom implements UserDetailsService {
-
-    private final AuthService authService;
-
-    public UserDetailsServiceCustom(AuthService authService) {
-        this.authService = authService;
+    private final LoginService loginService;
+    public UserDetailsServiceCustom(LoginService loginService) {
+        this.loginService = loginService;
     }
 
     @Override
     public UserDetailsCustom loadUserByUsername(String username) throws UsernameNotFoundException {
         try{
-            UserModel userModel = this.authService.login("",username);
+            UserModel userModel = this.loginService.login("",username);
             return UserDetailsCustom.builder()
                     .idCompany(userModel.getIdCompany())
                     .idUser(userModel.getIdUser())
                     .company(userModel.getCompany())
                     .username(userModel.getUsername())
-                    .password(userModel.getPassword())
-                    .isVerifyCode(userModel.isVerifyCode())
+                    .encode(userModel.getEncode())
+                    .nivel(userModel.getNivel())
                     .secretCode(userModel.getSecretCode())
                     .authorities(getAuthorities(userModel.getRole()))
-                    .expirationUsername(userModel.getExpirationUsername())
-                    .expirationPassword(userModel.getExpirationPassword())
+                    .registdate(userModel.getRegistdate())
+                    .expiredate(userModel.getExpiredate())
                     .status(userModel.getStatus())
                     .build();
         } catch (Exception e){
@@ -44,18 +44,18 @@ public class UserDetailsServiceCustom implements UserDetailsService {
 
     public UserDetailsCustom loadUserByUsernameAndCompany(String company, String username) throws UsernameNotFoundException {
         try{
-            UserModel userModel = this.authService.login(company,username);
+            UserModel userModel = this.loginService.login(company,username);
             return UserDetailsCustom.builder()
                     .idCompany(userModel.getIdCompany())
                     .idUser(userModel.getIdUser())
                     .company(userModel.getCompany())
                     .username(userModel.getUsername())
-                    .password(userModel.getPassword())
-                    .isVerifyCode(userModel.isVerifyCode())
+                    .encode(userModel.getEncode())
+                    .nivel(userModel.getNivel())
                     .secretCode(userModel.getSecretCode())
                     .authorities(getAuthorities(userModel.getRole()))
-                    .expirationUsername(userModel.getExpirationUsername())
-                    .expirationPassword(userModel.getExpirationPassword())
+                    .registdate(userModel.getRegistdate())
+                    .expiredate(userModel.getExpiredate())
                     .status(userModel.getStatus())
                     .build();
         } catch (Exception e){

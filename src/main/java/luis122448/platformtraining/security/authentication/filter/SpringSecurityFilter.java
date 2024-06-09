@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import luis122448.platformtraining.security.authentication.component.CustomWebAuthenticationDetailsSource;
-import luis122448.platformtraining.security.authentication.component.TOTPUtils;
+import luis122448.platformtraining.security.authentication.component.TOTPUtil;
 import luis122448.platformtraining.security.authentication.exception.JWTAuthEntryPoint;
 import luis122448.platformtraining.security.authentication.provider.CustomDaoAuthenticationProvider;
 import luis122448.platformtraining.security.authentication.user.UserDetailsServiceCustom;
@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SpringSecurityFilter {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final TOTPUtils totpUtils;
+    private final TOTPUtil totpUtil;
     private final UserDetailsServiceCustom userDetailsServiceCustom;
     private final ObjectMapper objectMapper;
     private final CustomWebAuthenticationDetailsSource customWebAuthenticationDetailsSource;
@@ -68,7 +68,7 @@ public class SpringSecurityFilter {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        CustomDaoAuthenticationProvider customDaoAuthenticationProvider = new CustomDaoAuthenticationProvider(totpUtils);
+        CustomDaoAuthenticationProvider customDaoAuthenticationProvider = new CustomDaoAuthenticationProvider(totpUtil);
         customDaoAuthenticationProvider.setUserDetailsService(this.userDetailsServiceCustom);
         customDaoAuthenticationProvider.setPasswordEncoder(this.bCryptPasswordEncoder);
         return customDaoAuthenticationProvider;

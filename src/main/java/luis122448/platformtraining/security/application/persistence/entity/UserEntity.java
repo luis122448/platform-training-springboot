@@ -27,11 +27,13 @@ public class UserEntity extends AuditingEntity {
     @Id
     @Column(name = "ID_USER", nullable = false)
     private Long idUser;
+    @Column(name = "USERNAME", nullable = false)
     private String username;
-    private String password;
-    private boolean isVerifyCode;
+    @Column(name = "ENCODE", nullable = false)
+    private String encode;
     private String secretCode;
     private String role;
+    private Integer nivel;
     private String name;
     private String lastName;
     private String urlPhoto;
@@ -39,8 +41,10 @@ public class UserEntity extends AuditingEntity {
     private String address;
     private String phone;
     private String comment;
-    private LocalDate expirationUsername;
-    private LocalDate expirationPassword;
+    @Column(name = "REGIST_DATE", nullable = true)
+    private LocalDate registdate;
+    @Column(name = "EXPIRE_DATE", nullable = true)
+    private LocalDate expiredate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_COMPANY", referencedColumnName = "ID_COMPANY", insertable = false, updatable = false)

@@ -5,15 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class AuthModel {
-
+@NoArgsConstructor
+public class LoginModel implements Serializable {
     private String company;
     private String username;
     private String password;
-    private String verifyCode;
-
 }

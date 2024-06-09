@@ -10,7 +10,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserClassKey implements Serializable {
-
     private Long idCompany;
     private Long idUser;
     private Long idClass;

@@ -1,9 +1,12 @@
 package luis122448.platformtraining.application.domain.service.implement;
 
+import luis122448.platformtraining.application.domain.model.UserClassModel;
 import luis122448.platformtraining.application.domain.model.UserCourseModel;
+import luis122448.platformtraining.application.domain.service.service.UserClassService;
 import luis122448.platformtraining.application.domain.service.service.UserCourseService;
 import luis122448.platformtraining.application.persistence.entity.CourseEntity;
 import luis122448.platformtraining.application.persistence.entity.UserCourseEntity;
+import luis122448.platformtraining.application.persistence.entity.key.CourseKey;
 import luis122448.platformtraining.application.persistence.entity.key.UserCourseKey;
 import luis122448.platformtraining.application.persistence.mapper.TeacherMapper;
 import luis122448.platformtraining.application.persistence.mapper.UserCourseMapper;
@@ -33,15 +36,17 @@ public class UserCourseServiceImpl implements UserCourseService {
     private final UserCourseMapper userCourseMapper;
     private final TeacherRepository teacherRepository;
     private final TeacherMapper teacherMapper;
+    private final UserClassService userClassService;
     private final Long idCompany;
     private final Long idUser;
 
-    public UserCourseServiceImpl(UserCourseRepository userCourseRepository, CourseRepository courseRepository, UserCourseMapper userCourseMapper, TeacherRepository teacherRepository, TeacherMapper teacherMapper) {
+    public UserCourseServiceImpl(UserCourseRepository userCourseRepository, CourseRepository courseRepository, UserCourseMapper userCourseMapper, TeacherRepository teacherRepository, TeacherMapper teacherMapper, UserClassService userClassService) {
         this.userCourseRepository = userCourseRepository;
         this.courseRepository = courseRepository;
         this.userCourseMapper = userCourseMapper;
         this.teacherRepository = teacherRepository;
         this.teacherMapper = teacherMapper;
+        this.userClassService = userClassService;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetailsCustom userDetailsCustom) {
             this.idCompany = userDetailsCustom.getIdCompany();
@@ -59,9 +64,16 @@ public class UserCourseServiceImpl implements UserCourseService {
     }
 
     @Override
-    public ApiResponseObject<UserCourseModel> findByCourse(Long idCourse) throws GenericObjectServiceException {
+    public ApiResponseObject<UserCourseModel> findByCourse(Long idCourse) throws GenericObjectServiceException, GenericListServiceException {
+        CourseEntity courseEntity = this.courseRepository.findById(new CourseKey(idCompany,idCourse)).orElseThrow(
+                () -> new GenericObjectServiceException("COURSE NOT EXISTS!")
+        );
         UserCourseModel userCourseModel = this.userCourseMapper.toUserCourseModel(this.userCourseRepository.findByIdCourse(this.idCompany,this.idUser,idCourse).orElseThrow());
+        userCourseModel.setDescription(courseEntity.getDescription());
+        userCourseModel.setMarkdownContent(courseEntity.getMarkdownContent());
         userCourseModel.setTeacherModel(this.teacherMapper.toTeacherModel(this.teacherRepository.findByIdCourse(this.idCompany, idCourse).orElseThrow()));
+        List<UserClassModel> userClassModelList = this.userClassService.findByCourse(idCourse).getList().orElseThrow();
+        userCourseModel.setUserClassModelList(userClassModelList);
         return new ApiResponseObject<UserCourseModel>(Optional.of(userCourseModel));
     }
 

@@ -27,7 +27,7 @@ public class UserCourseController {
 
     @Operation(tags = {TAG_USER_APP})
     @GetMapping("/by-course")
-    public ResponseEntity<?> findByCourse(@RequestParam(name = "idCourse", defaultValue = "0") Long idCourse) throws GenericObjectServiceException{
+    public ResponseEntity<?> findByCourse(@RequestParam(name = "idCourse", defaultValue = "0") Long idCourse) throws GenericObjectServiceException, GenericListServiceException {
         ApiResponseObject<UserCourseModel> responseObject = this.userCourseService.findByCourse(idCourse);
         return ResponseEntity.ok(responseObject);
     }

@@ -20,8 +20,9 @@ public class CompanyEntity extends AuditingEntity {
     @Id
     @Column(name = "ID_COMPANY",nullable = false)
     private Long idCompany;
-    private String ssn;
+    private String company;
     private String name;
+    private byte[] gloss;
     private String urlLogo;
 
 }

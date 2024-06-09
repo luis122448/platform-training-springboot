@@ -26,7 +26,7 @@ public class JWTUtils {
         this.userDetailsServiceCustom = userDetailsServiceCustom;
     }
 
-    public  String createJwtToken(String company, String username, Boolean isRefreshToken ) throws SecurityException{
+    public  String generateJwtToken(String company, String username, Boolean isRefreshToken ) throws SecurityException{
         try{
             UserDetailsCustom userDetailsCustom = this.userDetailsServiceCustom.loadUserByUsernameAndCompany(company, username);
 
@@ -51,6 +51,23 @@ public class JWTUtils {
         } catch (SecurityException e) {
             log.info("Error {}", e.getMessage());
             throw new SecurityException("ERROR IN GENERATE TOKEN", e);
+        }
+    }
+
+    public String generateJwtFromTokenRefresh(String refreshToken) throws java.lang.SecurityException {
+        try{
+            Map<String, Object> tokenData = getDataJwtToken(refreshToken);
+            String username = tokenData.get(USERNAME).toString();
+            return Jwts
+                    .builder()
+                    .setSubject(username)
+                    .setIssuedAt(new Date()).setIssuer(ISSUER_INFO)
+                    .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME_TOKEN +  TOKEN_EXPIRATION_TIME_REFRESH_TOKEN))
+                    .signWith(SignatureAlgorithm.HS512, SUPER_SECRET_KEY)
+                    .addClaims(tokenData)
+                    .compact();
+        } catch (java.lang.SecurityException e) {
+            throw new java.lang.SecurityException("\"ERROR IN GENERATE REFRESH TOKEN", e);
         }
     }
 

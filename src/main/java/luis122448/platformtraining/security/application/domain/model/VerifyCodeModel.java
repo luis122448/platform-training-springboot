@@ -1,16 +1,16 @@
 package luis122448.platformtraining.security.application.domain.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+import java.io.Serializable;
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VerifyCodeModel {
-
+public class VerifyCodeModel implements Serializable {
+    private String company;
+    private String username;
     private String verifyCode;
-
 }

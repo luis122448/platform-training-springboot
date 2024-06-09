@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static luis122448.platformtraining.application.domain.constants.ErrorMessages.*;
+import static luis122448.platformtraining.application.domain.constant.ErrorMessages.*;
 
 @Service
 public class UserClassServiceImpl implements UserClassService {
