@@ -1,6 +1,7 @@
 ### JAVA ###
 HELP.md
 target/
+gradle/
 key/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
