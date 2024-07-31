@@ -1,18 +1,11 @@
 #!/bin/bash
+# Description: Deploy the application
 
-# Creando directorio para certificados SSL
-mkdir -p key
+# Stop the application
+sudo docker compose down
 
-# Creando archivo .env
-touch .env
+# Pull the latest changes
+sudo git pull origin main
 
-# Archivo de propiedades
-archivo="./src/main/resources/application-pdn.properties"
-
-# Reemplazar los valores
-sed -i "s/\${POSTGRES_HOST}/$POSTGRES_HOST/g" "$archivo"
-sed -i "s/\${POSTGRES_DATABASE}/$POSTGRES_DATABASE/g" "$archivo"
-sed -i "s/\${POSTGRES_USERNAME}/$POSTGRES_USERNAME/g" "$archivo"
-sed -i "s/\${POSTGRES_PASSWORD}/$POSTGRES_PASSWORD/g" "$archivo"
-
-echo "Valores reemplazados correctamente en $archivo"
+# Build and run the application
+sudo docker compose up --build --force-recreate --no-deps -d

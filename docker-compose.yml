@@ -1,0 +1,28 @@
+services:
+  platform-training-springboot:
+    container_name: platform-training-springboot
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        POSTGRES_HOST: $POSTGRES_HOST
+        POSTGRES_PORT: $POSTGRES_PORT
+        POSTGRES_DATABASE: $POSTGRES_DATABASE
+        POSTGRES_USERNAME: $POSTGRES_USERNAME
+        POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    environment:
+      POSTGRES_HOST: $POSTGRES_HOST
+      POSTGRES_PORT: $POSTGRES_PORT
+      POSTGRES_DATABASE: $POSTGRES_DATABASE
+      POSTGRES_USERNAME: $POSTGRES_USERNAME
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    ports:
+      - "8081:8081"
+    networks:
+      - platform-training-net  # Conexión a la red platform-training-net
+
+networks:
+  platform-training-net:  # Definición de la red platform-training-net
+    external: true   # Indicador de que la red ya está creada externamente
