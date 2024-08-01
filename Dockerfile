@@ -29,6 +29,6 @@ RUN gradle clean build --no-daemon
 FROM openjdk:21
 COPY --from=build /home/app/build/libs/platform-training-1.0.0.jar /usr/local/lib/platform-training.jar
 
-EXPOSE 8081
+EXPOSE 8082
 
 ENTRYPOINT ["java","-jar","/usr/local/lib/platform-training.jar"]
